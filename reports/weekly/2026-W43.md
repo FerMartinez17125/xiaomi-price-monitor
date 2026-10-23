@@ -1,4 +1,4 @@
-# Monitor Xiaomi — 2026-10-23 11:08 CST
+# Monitor Xiaomi — 2026-10-23 12:18 CST
 
 Consultas válidas: 0/3
 
@@ -31,7 +31,7 @@ Máximo histórico: Sin datos
 
 ## Estado de fuentes
 
-- mi-15t-pro: error — Precio o SKU de 512 GB no verificable en datos estructurados
-- mi-17: error — Precio o SKU de 512 GB no verificable en datos estructurados
-- liverpool-17: error — Precio o SKU de 512 GB no verificable en datos estructurados
+- mi-15t-pro: error — Xiaomi: precio y SKU de 512 GB no verificables sin JavaScript
+- mi-17: error — Xiaomi: precio y SKU de 512 GB no verificables sin JavaScript
+- liverpool-17: error — Precio principal no inequívoco
 - liverpool-15t-pro: pendiente — Pendiente una ficha individual comprobada del 15T Pro nuevo de 512 GB.
