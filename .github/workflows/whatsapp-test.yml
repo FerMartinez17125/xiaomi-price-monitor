@@ -1,0 +1,21 @@
+name: Probar WhatsApp oficial (Meta)
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  test-whatsapp:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install -r requirements.txt
+      - name: Enviar plantilla de prueba hello_world al numero autorizado
+        env:
+          WHATSAPP_ACCESS_TOKEN: ${{ secrets.WHATSAPP_ACCESS_TOKEN }}
+          WHATSAPP_PHONE_NUMBER_ID: ${{ secrets.WHATSAPP_PHONE_NUMBER_ID }}
+          WHATSAPP_TO: ${{ secrets.WHATSAPP_TO }}
+        run: python -m src.whatsapp --test
