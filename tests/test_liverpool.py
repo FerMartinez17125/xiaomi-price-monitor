@@ -35,6 +35,28 @@ class LiverpoolTests(unittest.TestCase):
         q = extract(html(prices="$19,999.00 $24,999.00"), PRODUCT, SRC)
         self.assertEqual(q["price"], 1999900)
 
+    def test_duplicate_prices_from_responsive_layout(self):
+        q = extract(
+            html(prices="$24,999.00 $24,999.00 $24,999.00"),
+            PRODUCT, SRC,
+        )
+        self.assertEqual(q["price"], 2499900)
+
+    def test_duplicate_discount_and_list(self):
+        q = extract(
+            html(prices="$19,999.00 $19,999.00 $24,999.00 $24,999.00"),
+            PRODUCT, SRC,
+        )
+        self.assertEqual(q["price"], 1999900)
+
+    def test_three_distinct_prices_rejected(self):
+        with self.assertRaises(ValueError):
+            extract(html(prices="$19,999.00 $21,999.00 $24,999.00"), PRODUCT, SRC)
+
+    def test_inverted_price_rejected(self):
+        with self.assertRaises(ValueError):
+            extract(html(prices="$24,999.00 $19,999.00"), PRODUCT, SRC)
+
     def test_wrong_model(self):
         with self.assertRaises(ValueError):
             extract(html(model="17T Pro AMOLED 6.8 pulgadas"), PRODUCT, SRC)
