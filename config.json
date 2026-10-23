@@ -1,0 +1,60 @@
+{
+  "timezone": "America/Mexico_City",
+  "currency": "MXN",
+  "min_valid_price": 3000,
+  "max_valid_price": 80000,
+  "products": [
+    {
+      "id": "xiaomi-15t-pro-512",
+      "name": "Xiaomi 15T Pro",
+      "model_pattern": "(?i)\\b15\\s*t\\s*pro\\b",
+      "capacity_gb": 512,
+      "target_price": 14500
+    },
+    {
+      "id": "xiaomi-17-512",
+      "name": "Xiaomi 17",
+      "model_pattern": "(?i)\\b17\\b(?!\\s*t(?:\\b|\\s)|\\s*ultra|\\s*pro)",
+      "capacity_gb": 512,
+      "target_price": 17000
+    }
+  ],
+  "sources": [
+    {
+      "id": "mi-15t-pro",
+      "product_id": "xiaomi-15t-pro-512",
+      "store": "Xiaomi Oficial",
+      "url": "https://www.mi.com/mx/product/xiaomi-15t-pro/buy/",
+      "enabled": true,
+      "require_capacity_in_title": false,
+      "notes": "Página dinámica: descartar $0 y SKU ambiguo."
+    },
+    {
+      "id": "mi-17",
+      "product_id": "xiaomi-17-512",
+      "store": "Xiaomi Oficial",
+      "url": "https://www.mi.com/mx/product/xiaomi-17/buy/",
+      "enabled": true,
+      "require_capacity_in_title": false,
+      "notes": "Página dinámica: puede mostrar $0 en HTML no renderizado."
+    },
+    {
+      "id": "liverpool-17",
+      "product_id": "xiaomi-17-512",
+      "store": "Liverpool",
+      "url": "https://www.liverpool.com.mx/tienda/pdp/xiaomi-17-amoled-6-3-pulgadas/1196389537",
+      "enabled": true,
+      "require_capacity_in_title": false,
+      "notes": "Ficha con variante 512 GB publicada; no se garantiza que el precio sea accesible vía Python."
+    },
+    {
+      "id": "liverpool-15t-pro",
+      "product_id": "xiaomi-15t-pro-512",
+      "store": "Liverpool",
+      "url": "",
+      "enabled": false,
+      "require_capacity_in_title": true,
+      "notes": "Pendiente una ficha individual comprobada del 15T Pro nuevo de 512 GB."
+    }
+  ]
+}
