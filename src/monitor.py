@@ -154,7 +154,7 @@ def run():
         time.sleep(0.2)
     if successes==0:
         LOG.warning("Ninguna tienda devolvió un precio verificado. Consultar reports/latest.md.")
-    if os.getenv("TELEGRAM_BOT_TOKEN") and os.getenv("TELEGRAM_CHAT_ID"):
+    if os.getenv("TELEGRAM_BOT_TOKEN"):
         for row in db.execute("SELECT id,message FROM outbox WHERE delivered IS NULL ORDER BY id LIMIT 10").fetchall():
             try:
                 if send_message(row["message"]): db.execute("UPDATE outbox SET delivered=? WHERE id=?",(ts,row["id"]))
