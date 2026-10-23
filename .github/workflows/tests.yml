@@ -1,5 +1,12 @@
 name: Tests
 on:
+  push:
+    branches: [main]
+    paths:
+      - 'src/**'
+      - 'tests/**'
+      - 'requirements.txt'
+      - '.github/workflows/tests.yml'
   pull_request:
   workflow_dispatch:
 permissions:
