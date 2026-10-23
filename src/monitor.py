@@ -63,7 +63,11 @@ def extract(html, product, source):
             raw=offer["priceSpecification"].get("price")
         val=amount(raw)
         if val: values.add(val)
-    if len(values)!=1: raise ValueError("Precio o SKU de 512 GB no verificable en datos estructurados")
+    if len(values)!=1:
+        if source.get("store") == "Liverpool":
+            from .liverpool import extract_liverpool
+            return extract_liverpool(soup, product, source, title)
+        raise ValueError("Xiaomi: precio y SKU de 512 GB no verificables sin JavaScript")
     price=values.pop()
     if not (300000<=price<=8000000): raise ValueError("Precio sospechoso")
     txt=(soup.select_one("main") or soup).get_text(" ",strip=True)[:12000]
