@@ -94,7 +94,7 @@ def fetch(url):
         if re.search(r"captcha|verify you are human|access denied|cf-chl-",response.text[:5000],re.I):
             raise PermissionError("Protección anti-bot")
         return response.text
-from .whatsapp import send_price_notification
+from .telegram import send_message
 
 def schema(db):
     db.executescript("""
@@ -154,14 +154,11 @@ def run():
         time.sleep(0.2)
     if successes==0:
         LOG.warning("Ninguna tienda devolvió un precio verificado. Consultar reports/latest.md.")
-    # No enviar avisos de fallo cada día como mensajes promocionales de pago.
-    db.execute("UPDATE outbox SET delivered='suprimido: no es oferta' "
-               "WHERE delivered IS NULL AND message LIKE 'Monitor Xiaomi:%'")
-    if all(os.getenv(key) for key in ("WHATSAPP_ACCESS_TOKEN", "WHATSAPP_PHONE_NUMBER_ID", "WHATSAPP_TO")):
+    if os.getenv("TELEGRAM_BOT_TOKEN") and os.getenv("TELEGRAM_CHAT_ID"):
         for row in db.execute("SELECT id,message FROM outbox WHERE delivered IS NULL ORDER BY id LIMIT 10").fetchall():
             try:
-                if send_price_notification(row["message"]): db.execute("UPDATE outbox SET delivered=? WHERE id=?",(ts,row["id"]))
-            except (ValueError,RuntimeError,requests.RequestException) as exc: LOG.warning("WhatsApp: %s",str(exc))
+                if send_message(row["message"]): db.execute("UPDATE outbox SET delivered=? WHERE id=?",(ts,row["id"]))
+            except (ValueError,RuntimeError,requests.RequestException) as exc: LOG.warning("Telegram: %s",str(exc))
     reports=ROOT/"reports"; (reports/"daily").mkdir(parents=True,exist_ok=True); (reports/"weekly").mkdir(parents=True,exist_ok=True)
     lines=[f"# Monitor Xiaomi — {now.strftime('%Y-%m-%d %H:%M %Z')}","",f"Consultas válidas: {successes}/{sum(bool(x.get('enabled')) for x in cfg['sources'])}","",
       "Precios únicamente observados y verificados; no se usan cifras ficticias.",""]
