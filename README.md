@@ -28,12 +28,15 @@ Configuración en `config.json` (valores iniciales editables, **no precios actua
 
 | Fuente | Producto | Estado |
 |---|---|---|
-| Xiaomi México | 15T Pro 512 GB | URL configurada; precio aún no verificado |
-| Xiaomi México | Xiaomi 17 512 GB | URL configurada; precio aún no verificado |
-| Liverpool | Xiaomi 17 512 GB | URL configurada; precio aún no verificado |
+| Xiaomi México | 15T Pro 512 GB | Consulta automática pausada: requiere autorización |
+| Xiaomi México | Xiaomi 17 512 GB | Consulta automática pausada: requiere autorización |
+| Liverpool | Xiaomi 17 512 GB | Extractor ajustado para importes repetidos; requiere nueva ejecución real |
 | Liverpool | 15T Pro 512 GB | Pendiente de URL individual; deshabilitada |
 
 **ESTADO:** La primera ejecución del 23 de octubre de 2026 obtuvo **0 precios válidos de 3 fuentes activas**. Se añadió un extractor alternativo conservador para **Liverpool Xiaomi 17 512 GB**, que identifica el código de artículo, la memoria, el precio del producto (sin confundir mensualidades ni seguros) y la opción de compra. Sus pruebas automatizadas pasaron; **todavía falta comprobarlo en la próxima ejecución real de Monitor precios Xiaomi**. Las fichas de Xiaomi México siguen mostrando $0 en HTML sin JavaScript, por lo que están pendientes. No se inventan precios ni se eluden restricciones.
+
+
+**Restricción legal:** Los [términos oficiales de Xiaomi México](https://www.mi.com/mx/support/terms/terms-of-use/) restringen el uso de herramientas automáticas de extracción de datos y la creación de bases propias con su contenido sin autorización expresa. Por ello, las fuentes `mi-15t-pro` y `mi-17` están deshabilitadas en `config.json`, aunque sus enlaces se conservan para referencia. Si Xiaomi concede una fuente autorizada, podrán habilitarse de nuevo. El `robots.txt` de Liverpool permite acceso general, pero esto no garantiza disponibilidad ni derechos ilimitados sobre el contenido.
 
 ## Alertas
 
