@@ -94,14 +94,8 @@ def fetch(url):
         if re.search(r"captcha|verify you are human|access denied|cf-chl-",response.text[:5000],re.I):
             raise PermissionError("Protección anti-bot")
         return response.text
-def notify(message):
-    token=os.getenv("TELEGRAM_BOT_TOKEN",""); chat=os.getenv("TELEGRAM_CHAT_ID","")
-    if not (token and chat): return False
-    response=requests.post(f"https://api.telegram.org/bot{token}/sendMessage",
-       json={"chat_id":chat,"text":message[:4000],"disable_web_page_preview":True},timeout=20)
-    if response.status_code!=200 or not response.json().get("ok"):
-        raise RuntimeError(f"Telegram HTTP {response.status_code}")
-    return True
+from .whatsapp import send_price_notification
+
 def schema(db):
     db.executescript("""
     PRAGMA journal_mode=DELETE;
@@ -164,11 +158,11 @@ def run():
         if not state or state["value"]!=today:
             db.execute("INSERT INTO state(source,kind,value) VALUES('_system','health',?) ON CONFLICT(source,kind) DO UPDATE SET value=excluded.value",(today,))
             db.execute("INSERT INTO outbox(message) VALUES(?)",("Monitor Xiaomi: ninguna fuente produjo un precio validado. Revisar reportes.",))
-    if os.getenv("TELEGRAM_BOT_TOKEN") and os.getenv("TELEGRAM_CHAT_ID"):
+    if all(os.getenv(key) for key in ("WHATSAPP_ACCESS_TOKEN", "WHATSAPP_PHONE_NUMBER_ID", "WHATSAPP_TO")):
         for row in db.execute("SELECT id,message FROM outbox WHERE delivered IS NULL ORDER BY id LIMIT 10").fetchall():
             try:
-                if notify(row["message"]): db.execute("UPDATE outbox SET delivered=? WHERE id=?",(ts,row["id"]))
-            except (ValueError,RuntimeError,requests.RequestException) as exc: LOG.warning("Telegram: %s",str(exc).replace(os.getenv("TELEGRAM_BOT_TOKEN",""),"[SECRET]"))
+                if send_price_notification(row["message"]): db.execute("UPDATE outbox SET delivered=? WHERE id=?",(ts,row["id"]))
+            except (ValueError,RuntimeError,requests.RequestException) as exc: LOG.warning("WhatsApp: %s",str(exc))
     reports=ROOT/"reports"; (reports/"daily").mkdir(parents=True,exist_ok=True); (reports/"weekly").mkdir(parents=True,exist_ok=True)
     lines=[f"# Monitor Xiaomi — {now.strftime('%Y-%m-%d %H:%M %Z')}","",f"Consultas válidas: {successes}/{sum(bool(x.get('enabled')) for x in cfg['sources'])}","",
       "Precios únicamente observados y verificados; no se usan cifras ficticias.",""]
