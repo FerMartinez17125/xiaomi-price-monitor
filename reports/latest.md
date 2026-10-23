@@ -1,4 +1,4 @@
-# Monitor Xiaomi — 2026-10-23 12:27 CST
+# Monitor Xiaomi — 2026-10-23 14:29 CST
 
 Consultas válidas: 1/1
 
@@ -24,7 +24,7 @@ Máximo histórico: $24,999.00 MXN
 | Tienda | Precio último | Variación | Descuento vs máximo histórico | Estado |
 |---|---:|---:|---:|---|
 | Xiaomi Oficial | — | — | — | pendiente |
-| Liverpool | $24,999.00 MXN | — | 0.0% | ok |
+| Liverpool | $24,999.00 MXN | +0.00 MXN (+0.0%) | 0.0% | ok |
 
 **Mejor oferta actual comprobada:** $24,999.00 MXN — Liverpool — https://www.liverpool.com.mx/tienda/pdp/xiaomi-17-amoled-6-3-pulgadas/1196389537
 
