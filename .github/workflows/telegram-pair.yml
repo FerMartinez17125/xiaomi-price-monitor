@@ -1,0 +1,47 @@
+name: Vincular Telegram
+on:
+  workflow_dispatch:
+    inputs:
+      codigo:
+        description: 'Escribe aquí el código de 12 a 64 caracteres que enviaste con /vincular al bot'
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+concurrency:
+  group: xiaomi-monitor-main
+  cancel-in-progress: false
+
+jobs:
+  vincular:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install -r requirements.txt
+      - name: Verificar comando privado y registrar chat cifrado
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          PAIRING_CODE: ${{ inputs.codigo }}
+        run: python -m src.telegram_pair
+      - name: Guardar identificador cifrado en GitHub
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/telegram_chat.enc
+          git commit -m 'config: vincular chat Telegram cifrado [skip ci]'
+          git push
+      - name: Enviar confirmación de vinculación
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+        run: |
+          python - <<'PY'
+          from src.telegram import send_message
+          send_message("Vinculación completada: recibirás aquí las alertas del monitor Xiaomi cuando se detecten ofertas verificadas.")
+          print("Telegram aceptó la notificación de prueba.")
+          PY
