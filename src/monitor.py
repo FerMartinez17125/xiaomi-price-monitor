@@ -153,11 +153,10 @@ def run():
         db.commit()
         time.sleep(0.2)
     if successes==0:
-        today=now.strftime("%Y-%m-%d")
-        state=db.execute("SELECT value FROM state WHERE source='_system' AND kind='health'").fetchone()
-        if not state or state["value"]!=today:
-            db.execute("INSERT INTO state(source,kind,value) VALUES('_system','health',?) ON CONFLICT(source,kind) DO UPDATE SET value=excluded.value",(today,))
-            db.execute("INSERT INTO outbox(message) VALUES(?)",("Monitor Xiaomi: ninguna fuente produjo un precio validado. Revisar reportes.",))
+        LOG.warning("Ninguna tienda devolvió un precio verificado. Consultar reports/latest.md.")
+    # No enviar avisos de fallo cada día como mensajes promocionales de pago.
+    db.execute("UPDATE outbox SET delivered='suprimido: no es oferta' "
+               "WHERE delivered IS NULL AND message LIKE 'Monitor Xiaomi:%'")
     if all(os.getenv(key) for key in ("WHATSAPP_ACCESS_TOKEN", "WHATSAPP_PHONE_NUMBER_ID", "WHATSAPP_TO")):
         for row in db.execute("SELECT id,message FROM outbox WHERE delivered IS NULL ORDER BY id LIMIT 10").fetchall():
             try:
