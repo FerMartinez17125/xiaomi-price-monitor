@@ -25,18 +25,18 @@
       "product_id": "xiaomi-15t-pro-512",
       "store": "Xiaomi Oficial",
       "url": "https://www.mi.com/mx/product/xiaomi-15t-pro/buy/",
-      "enabled": true,
+      "enabled": false,
       "require_capacity_in_title": false,
-      "notes": "Página dinámica: descartar $0 y SKU ambiguo."
+      "notes": "En pausa: los términos de uso de Xiaomi México restringen la extracción automatizada sin autorización expresa. Requiere fuente/API autorizada."
     },
     {
       "id": "mi-17",
       "product_id": "xiaomi-17-512",
       "store": "Xiaomi Oficial",
       "url": "https://www.mi.com/mx/product/xiaomi-17/buy/",
-      "enabled": true,
+      "enabled": false,
       "require_capacity_in_title": false,
-      "notes": "Página dinámica: puede mostrar $0 en HTML no renderizado."
+      "notes": "En pausa: los términos de uso de Xiaomi México restringen la extracción automatizada sin autorización expresa. Requiere fuente/API autorizada."
     },
     {
       "id": "liverpool-17",
