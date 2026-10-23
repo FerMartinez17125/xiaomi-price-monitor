@@ -28,13 +28,24 @@ def extract_liverpool(soup, product, source, title):
         r"Y/o hasta|Consulta las opciones de pago|Ver disponibilidad en tienda|Color:",
         after, maxsplit=1, flags=re.I,
     )[0]
-    prices = re.findall(r"\$\s*([\d,]+)\.(\d{2})", area)
-    if not prices or len(prices) > 2:
-        raise ValueError("Precio principal no inequívoco")
-    cents = [int(p.replace(",", "")) * 100 + int(dec) for p, dec in prices]
-    price = cents[0]  # Con precio tachado, el descuento aparece primero.
-    if len(cents) == 2 and cents[1] < cents[0]:
-        raise ValueError("Orden de precios ambiguo")
+    # Algunas páginas duplican el precio principal en componentes responsivos.
+    # Aceptamos repeticiones de un mismo importe, pero no tres precios distintos.
+    prices = re.findall(r"\$\s*([\d][\d,\s]*?)\s*\.\s*(\d{2})(?!\d)", area)
+    cents = [int(re.sub(r"\s", "", p).replace(",", "")) * 100 + int(dec)
+             for p, dec in prices]
+    distinct = list(dict.fromkeys(cents))
+    if not cents:
+        raise ValueError(
+            f"Liverpool: sin importe principal legible (zona {len(area)} caracteres)"
+        )
+    if len(distinct) > 2:
+        raise ValueError(
+            f"Liverpool: {len(cents)} importes, {len(distinct)} distintos antes de mensualidades"
+        )
+    # En descuentos se presenta primero el precio actual y después el anterior.
+    price = cents[0]
+    if any(value < price for value in distinct):
+        raise ValueError("Liverpool: hay un precio menor después del primero; ambiguo")
     if not (300000 <= price <= 8000000):
         raise ValueError("Precio inválido")
     selection = re.search(r"Tama(?:ñ|n)o:\s*(.*?)Cantidad:", section, re.I)
