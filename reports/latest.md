@@ -1,4 +1,4 @@
-# Monitor Xiaomi — 2026-11-05 16:01 CST
+# Monitor Xiaomi — 2026-11-05 20:30 CST
 
 Consultas válidas: 1/1
 
@@ -18,20 +18,20 @@ Máximo histórico: Sin datos
 
 ## Xiaomi 17 512 GB
 Objetivo: $17,000.00 MXN
-Mínimo histórico: $24,999.00 MXN
+Mínimo histórico: $19,999.20 MXN
 Máximo histórico: $24,999.00 MXN
 
 | Tienda | Precio último | Variación | Descuento vs máximo histórico | Estado |
 |---|---:|---:|---:|---|
 | Xiaomi Oficial | — | — | — | pendiente |
-| Liverpool | $24,999.00 MXN | +0.00 MXN (+0.0%) | 0.0% | ok |
+| Liverpool | $19,999.20 MXN | -4,999.80 MXN (-20.0%) | 20.0% | ok |
 
-**Mejor oferta actual comprobada:** $24,999.00 MXN — Liverpool — https://www.liverpool.com.mx/tienda/pdp/xiaomi-17-amoled-6-3-pulgadas/1196389537
+**Mejor oferta actual comprobada:** $19,999.20 MXN — Liverpool — https://www.liverpool.com.mx/tienda/pdp/xiaomi-17-amoled-6-3-pulgadas/1196389537
 
 
 ## Estado de fuentes
 
 - mi-15t-pro: pendiente — En pausa: los términos de uso de Xiaomi México restringen la extracción automatizada sin autorización expresa. Requiere fuente/API autorizada.
 - mi-17: pendiente — En pausa: los términos de uso de Xiaomi México restringen la extracción automatizada sin autorización expresa. Requiere fuente/API autorizada.
-- liverpool-17: ok — $24,999.00 MXN
+- liverpool-17: ok — $19,999.20 MXN
 - liverpool-15t-pro: pendiente — Pendiente una ficha individual comprobada del 15T Pro nuevo de 512 GB.
