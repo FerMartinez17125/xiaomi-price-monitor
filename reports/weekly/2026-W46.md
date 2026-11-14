@@ -1,6 +1,6 @@
-# Monitor Xiaomi — 2026-11-13 21:20 CST
+# Monitor Xiaomi — 2026-11-14 05:31 CST
 
-Consultas válidas: 1/1
+Consultas válidas: 0/1
 
 Precios únicamente observados y verificados; no se usan cifras ficticias.
 
@@ -24,14 +24,14 @@ Máximo histórico: $24,999.00 MXN
 | Tienda | Precio último | Variación | Descuento vs máximo histórico | Estado |
 |---|---:|---:|---:|---|
 | Xiaomi Oficial | — | — | — | pendiente |
-| Liverpool | $19,999.20 MXN | +0.00 MXN (+0.0%) | 20.0% | ok |
+| Liverpool | $19,999.20 MXN | +0.00 MXN (+0.0%) | 20.0% | error |
 
-**Mejor oferta actual comprobada:** $19,999.20 MXN — Liverpool — https://www.liverpool.com.mx/tienda/pdp/xiaomi-17-amoled-6-3-pulgadas/1196389537
+**Mejor oferta actual:** sin precios validados en esta ejecución.
 
 
 ## Estado de fuentes
 
 - mi-15t-pro: pendiente — En pausa: los términos de uso de Xiaomi México restringen la extracción automatizada sin autorización expresa. Requiere fuente/API autorizada.
 - mi-17: pendiente — En pausa: los términos de uso de Xiaomi México restringen la extracción automatizada sin autorización expresa. Requiere fuente/API autorizada.
-- liverpool-17: ok — $19,999.20 MXN
+- liverpool-17: error — 404 Client Error: Not Found for url: https://www.liverpool.com.mx/tienda/pdp/xiaomi-17-amoled-6-3-pulgadas/1196389537
 - liverpool-15t-pro: pendiente — Pendiente una ficha individual comprobada del 15T Pro nuevo de 512 GB.
